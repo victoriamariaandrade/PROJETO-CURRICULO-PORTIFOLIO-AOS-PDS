@@ -1,0 +1,36 @@
+meta {
+  name: Substituir (PUT)
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/api/projects/{{projectId}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "Projeto Teste",
+    "description": "Atualizado pelo Bruno.",
+    "category": "Web",
+    "partner": null,
+    "icon": "globe-outline",
+    "repositoryUrl": null,
+    "technologies": [
+      "React"
+    ],
+    "displayOrder": 1
+  }
+}
+
+tests {
+  test("Status 200", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+
+  test("Resposta tem \"data\"", function () {
+    expect(res.getBody()).to.have.property('data');
+  });
+}

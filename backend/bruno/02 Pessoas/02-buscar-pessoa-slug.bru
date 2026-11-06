@@ -1,0 +1,25 @@
+meta {
+  name: Buscar pessoa (slug)
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/api/people/lucas-ferreira
+  body: none
+  auth: inherit
+}
+
+tests {
+  test("Status 200", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("Tem contatos", function () {
+    expect(res.getBody().data.contacts).to.be.an('array');
+  });
+  
+  test("Tem interesses", function () {
+    expect(res.getBody().data.interests).to.be.an('array');
+  });
+}

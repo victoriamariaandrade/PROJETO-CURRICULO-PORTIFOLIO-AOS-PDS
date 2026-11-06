@@ -1,0 +1,21 @@
+meta {
+  name: Currículo completo
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/api/people/{{personRef}}/resume
+  body: none
+  auth: inherit
+}
+
+tests {
+  test("Status 200", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+
+  test("Tem todas as seções", function () {
+    expect(res.getBody().data).to.have.all.keys('profile', 'education', 'experiences', 'projects', 'skills');
+  });
+}

@@ -1,0 +1,31 @@
+meta {
+  name: Atualizar parcialmente (PATCH)
+  type: http
+  seq: 5
+}
+
+patch {
+  url: {{baseUrl}}/api/experiences/{{experienceId}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "technologies": [
+      "React Native",
+      "Expo",
+      "Node.js"
+    ]
+  }
+}
+
+tests {
+  test("Status 200", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+
+  test("Resposta tem \"data\"", function () {
+    expect(res.getBody()).to.have.property('data');
+  });
+}

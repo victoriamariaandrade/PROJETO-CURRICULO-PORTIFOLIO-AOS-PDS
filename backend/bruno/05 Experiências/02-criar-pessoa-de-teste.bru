@@ -1,0 +1,40 @@
+meta {
+  name: Criar (pessoa de teste)
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/people/{{testPersonSlug}}/experiences
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "role": "Desenvolvedora Mobile",
+    "company": "Empresa Exemplo",
+    "startDate": "2024-03-01",
+    "endDate": null,
+    "description": "Criada pelo Bruno.",
+    "technologies": [
+      "React Native",
+      "Expo",
+      "TypeScript"
+    ]
+  }
+}
+
+script:post-response {
+  if (res.getBody()?.data?.id) bru.setVar("experienceId", res.getBody().data.id);
+}
+
+tests {
+  test("Status 201", function () {
+    expect(res.getStatus()).to.equal(201);
+  });
+
+  test("Resposta tem \"data\"", function () {
+    expect(res.getBody()).to.have.property('data');
+  });
+}

@@ -1,0 +1,19 @@
+headers {
+  x-api-key: {{apiKey}}
+}
+
+auth {
+  mode: none
+}
+
+docs {
+  # API de Currículos
+
+  API REST de currículos e portfólios (Express + PostgreSQL/NeonDB).
+
+  - Sucesso: `{ "data": ... }`. Erro: `{ "error": { "status", "message", "details?" } }`.
+  - `:person` aceita o ID numérico ou o slug da pessoa (ex.: `victoria-andrade`).
+  - Rode a coleção inteira pelo Runner: ela cria uma pessoa de teste, exercita o CRUD de todas as
+    entidades e os casos de erro, e remove a pessoa no final.
+  - Se a API tiver `API_KEY`, preencha a variável `apiKey` no environment.
+}

@@ -1,0 +1,21 @@
+meta {
+  name: Buscar excluído (404)
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{baseUrl}}/api/experiences/{{experienceId}}
+  body: none
+  auth: inherit
+}
+
+tests {
+  test("Status 404", function () {
+    expect(res.getStatus()).to.equal(404);
+  });
+
+  test("Resposta tem \"error\"", function () {
+    expect(res.getBody()).to.have.property('error');
+  });
+}

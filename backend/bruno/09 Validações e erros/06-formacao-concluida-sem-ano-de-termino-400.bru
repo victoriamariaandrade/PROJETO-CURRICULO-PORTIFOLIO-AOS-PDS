@@ -1,0 +1,31 @@
+meta {
+  name: Formação concluída sem ano de término (400)
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/api/people/{{testPersonSlug}}/education
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "degree": "MBA",
+    "course": "Gestão",
+    "institution": "X",
+    "startYear": 2022,
+    "status": "completed"
+  }
+}
+
+tests {
+  test("Status 400", function () {
+    expect(res.getStatus()).to.equal(400);
+  });
+
+  test("Resposta tem \"error\"", function () {
+    expect(res.getBody()).to.have.property('error');
+  });
+}

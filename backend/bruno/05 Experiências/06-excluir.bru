@@ -1,0 +1,17 @@
+meta {
+  name: Excluir
+  type: http
+  seq: 6
+}
+
+delete {
+  url: {{baseUrl}}/api/experiences/{{experienceId}}
+  body: none
+  auth: inherit
+}
+
+tests {
+  test("Status 204", function () {
+    expect(res.getStatus()).to.equal(204);
+  });
+}

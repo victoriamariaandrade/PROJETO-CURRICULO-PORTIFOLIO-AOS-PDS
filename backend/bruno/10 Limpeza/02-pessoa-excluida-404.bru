@@ -1,0 +1,21 @@
+meta {
+  name: Pessoa excluída (404)
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/api/people/{{testPersonId}}
+  body: none
+  auth: inherit
+}
+
+tests {
+  test("Status 404", function () {
+    expect(res.getStatus()).to.equal(404);
+  });
+
+  test("Resposta tem \"error\"", function () {
+    expect(res.getBody()).to.have.property('error');
+  });
+}

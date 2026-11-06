@@ -1,0 +1,31 @@
+meta {
+  name: Datas inconsistentes (400)
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/api/people/{{testPersonSlug}}/experiences
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "role": "Dev",
+    "company": "X",
+    "startDate": "2025-01-01",
+    "endDate": "2024-01-01",
+    "description": "Fim antes do início."
+  }
+}
+
+tests {
+  test("Status 400", function () {
+    expect(res.getStatus()).to.equal(400);
+  });
+
+  test("Resposta tem \"error\"", function () {
+    expect(res.getBody()).to.have.property('error');
+  });
+}

@@ -1,0 +1,17 @@
+meta {
+  name: Excluir pessoa de teste
+  type: http
+  seq: 1
+}
+
+delete {
+  url: {{baseUrl}}/api/people/{{testPersonId}}
+  body: none
+  auth: inherit
+}
+
+tests {
+  test("Status 204", function () {
+    expect(res.getStatus()).to.equal(204);
+  });
+}

@@ -1,0 +1,38 @@
+meta {
+  name: Substituir pessoa (PUT)
+  type: http
+  seq: 7
+}
+
+put {
+  url: {{baseUrl}}/api/people/{{testPersonId}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "slug": "{{testPersonSlug}}",
+    "name": "Pessoa de Teste",
+    "role": "Desenvolvedora React Native",
+    "headline": "Atualizada pelo Bruno",
+    "summary": "Registro temporário usado para testar o CRUD da API.",
+    "location": null,
+    "avatarUrl": null,
+    "interests": [
+      "Mobile",
+      "Acessibilidade",
+      "Testes de Software (QA)"
+    ]
+  }
+}
+
+tests {
+  test("Status 200", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("Cargo atualizado", function () {
+    expect(res.getBody().data.role).to.equal('Desenvolvedora Full Stack');
+  });
+}

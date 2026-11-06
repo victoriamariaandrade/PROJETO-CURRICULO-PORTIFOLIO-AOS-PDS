@@ -1,0 +1,21 @@
+meta {
+  name: Listar pessoas
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/people
+  body: none
+  auth: inherit
+}
+
+tests {
+  test("Status 200", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+
+  test("Pelo menos 2 pessoas", function () {
+    expect(res.getBody().data.length).to.be.at.least(2);
+  });
+}

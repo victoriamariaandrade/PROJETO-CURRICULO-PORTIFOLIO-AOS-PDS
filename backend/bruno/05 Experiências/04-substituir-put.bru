@@ -1,0 +1,35 @@
+meta {
+  name: Substituir (PUT)
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/api/experiences/{{experienceId}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "role": "Desenvolvedora Mobile Pleno",
+    "company": "Empresa Exemplo",
+    "startDate": "2024-03-01",
+    "endDate": "2025-06-30",
+    "description": "Atualizada pelo Bruno.",
+    "technologies": [
+      "React Native",
+      "Expo"
+    ]
+  }
+}
+
+tests {
+  test("Status 200", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+
+  test("Resposta tem \"data\"", function () {
+    expect(res.getBody()).to.have.property('data');
+  });
+}

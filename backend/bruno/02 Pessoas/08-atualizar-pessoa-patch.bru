@@ -1,0 +1,27 @@
+meta {
+  name: Atualizar pessoa (PATCH)
+  type: http
+  seq: 8
+}
+
+patch {
+  url: {{baseUrl}}/api/people/{{testPersonSlug}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "location": "Joao PEssoa, PB"
+  }
+}
+
+tests {
+  test("Status 200", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("Local atualizado", function () {
+    expect(res.getBody().data.location).to.equal('João Pessoa, PB');
+  });
+}

@@ -1,0 +1,37 @@
+meta {
+  name: Criar (pessoa de teste)
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/people/{{testPersonSlug}}/education
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "degree": "Bacharelado",
+    "course": "Sistemas de Informação",
+    "institution": "Universidade Exemplo",
+    "startYear": 2021,
+    "endYear": null,
+    "status": "in-progress",
+    "description": "Criada pelo Bruno."
+  }
+}
+
+script:post-response {
+  if (res.getBody()?.data?.id) bru.setVar("educationId", res.getBody().data.id);
+}
+
+tests {
+  test("Status 201", function () {
+    expect(res.getStatus()).to.equal(201);
+  });
+
+  test("Resposta tem \"data\"", function () {
+    expect(res.getBody()).to.have.property('data');
+  });
+}

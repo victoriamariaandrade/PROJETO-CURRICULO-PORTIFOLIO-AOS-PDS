@@ -1,0 +1,27 @@
+meta {
+  name: Criar duplicada (409)
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/api/technologies
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "TECNOLOGIA BRUNO 2"
+  }
+}
+
+tests {
+  test("Status 409", function () {
+    expect(res.getStatus()).to.equal(409);
+  });
+
+  test("Resposta tem \"error\"", function () {
+    expect(res.getBody()).to.have.property('error');
+  });
+}

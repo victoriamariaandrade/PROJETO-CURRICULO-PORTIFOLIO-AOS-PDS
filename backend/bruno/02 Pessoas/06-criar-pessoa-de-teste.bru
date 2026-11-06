@@ -1,0 +1,40 @@
+meta {
+  name: Criar pessoa de teste
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/api/people
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "slug": "pessoa-teste-bruna",
+    "name": "Pessoa de Teste iOS",
+    "role": "Desenvolvedora iOS",
+    "headline": "Criada pelo Bruna",
+    "summary": "Registro temporário usado para testar o CRUD da API.",
+    "location": "Recife, PE",
+    "interests": [
+      "Mobile",
+      "Acessibilidade"
+    ]
+  }
+}
+
+script:post-response {
+  if (res.getBody()?.data?.id) bru.setVar("testPersonId", res.getBody().data.id);
+}
+
+tests {
+  test("Status 201", function () {
+    expect(res.getStatus()).to.equal(201);
+  });
+  
+  test("Resposta tem \"data\"", function () {
+    expect(res.getBody()).to.have.property('data');
+  });
+}

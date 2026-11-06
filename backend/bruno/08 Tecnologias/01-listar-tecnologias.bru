@@ -1,0 +1,25 @@
+meta {
+  name: Listar tecnologias
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/technologies
+  body: none
+  auth: inherit
+}
+
+tests {
+  test("Status 200", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+
+  test("Resposta tem \"data\"", function () {
+    expect(res.getBody()).to.have.property('data');
+  });
+
+  test("Lista", function () {
+    expect(res.getBody().data).to.be.an('array');
+  });
+}

@@ -1,0 +1,31 @@
+meta {
+  name: Criar tecnologia
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/technologies
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "Tecnologia Bruno"
+  }
+}
+
+script:post-response {
+  if (res.getBody()?.data?.id) bru.setVar("technologyId", res.getBody().data.id);
+}
+
+tests {
+  test("Status 201", function () {
+    expect(res.getStatus()).to.equal(201);
+  });
+
+  test("Resposta tem \"data\"", function () {
+    expect(res.getBody()).to.have.property('data');
+  });
+}

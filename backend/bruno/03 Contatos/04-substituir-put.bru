@@ -1,0 +1,30 @@
+meta {
+  name: Substituir (PUT)
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/api/contacts/{{contactId}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "type": "github",
+    "label": "github.com/teste",
+    "url": "https://github.com/teste",
+    "displayOrder": 1
+  }
+}
+
+tests {
+  test("Status 200", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+
+  test("Resposta tem \"data\"", function () {
+    expect(res.getBody()).to.have.property('data');
+  });
+}

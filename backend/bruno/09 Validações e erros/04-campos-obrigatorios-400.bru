@@ -1,0 +1,28 @@
+meta {
+  name: Campos obrigatórios (400)
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/api/people
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "slug": "Nome Com Espaço",
+    "name": ""
+  }
+}
+
+tests {
+  test("Status 400", function () {
+    expect(res.getStatus()).to.equal(400);
+  });
+
+  test("Lista os campos com erro", function () {
+    expect(res.getBody().error.details).to.be.an('array').that.is.not.empty;
+  });
+}

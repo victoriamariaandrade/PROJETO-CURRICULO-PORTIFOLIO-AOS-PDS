@@ -1,0 +1,33 @@
+meta {
+  name: Substituir (PUT)
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/api/education/{{educationId}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "degree": "Bacharelado",
+    "course": "Sistemas de Informação",
+    "institution": "Universidade Exemplo",
+    "startYear": 2021,
+    "endYear": 2025,
+    "status": "completed",
+    "description": null
+  }
+}
+
+tests {
+  test("Status 200", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+
+  test("Resposta tem \"data\"", function () {
+    expect(res.getBody()).to.have.property('data');
+  });
+}
